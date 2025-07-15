@@ -5,8 +5,8 @@
 ## 문제 상황
 
 - React Query는 내부적으로 `notifyManager`에서 `setTimeout(..., 0)`을 사용해 배치 처리
-- 즉, 마이크로태스크가 React Query의 매크로태스크 notification보다 먼저 실행됨
-- 이 사이 시간 갭으로 인해 드물게 중복 mutation이 발생할 수 있음
+  - 즉, 마이크로태스크가 React Query의 매크로태스크 notification보다 먼저 실행됨
+- 사용자의 버튼 클릭과 매크로태스크의 notification 사이 시간 갭으로 인해 드물게 중복 mutation이 발생할 수 있음
 
 ## 참고
 
