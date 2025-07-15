@@ -1,43 +1,11 @@
-# React State Update Timing Issue
+# React Query State Update Timing Issue
 
-리액트 state batch update <-> 유저 인터랙션 사이 갭으로 인해
-mutation 호출 후 isPending이 true임에도 버튼이 눌리는 현상 재현
+## 문제 상황
 
-## 테스트 케이스
+- React Query는 내부적으로 `notifyManager`에서 `setTimeout(..., 0)`을 사용해 배치 처리
+- 즉, 마이크로태스크가 React Query의 매크로태스크 notification보다 먼저 실행됨
+- 이 사이 시간 갭으로 인해 드물게 중복 mutation이 발생할 수 있음
 
-버튼을 누르면 500ms 동안 로딩 상태가 되고 그 후 카운트가 증가하는 카운터
-button disabled에 로딩 상태를 전달, 로딩중에는 버튼을 누를 수 없음
+## 참고
 
-- [src/routes/index.tsx](./src/routes/index.tsx): 일반적인 사용예
-- [src/routes/flushSync.tsx](./src/routes/flushSync.tsx): `flushSync` 사용
-
-## Playwright 테스트
-
-```ts
-test('더블클릭 테스트', async ({ page }) => {
-  const button = page.getByRole('button', { name: 'Click me' })
-
-  await button.click()
-  await delay(10)
-  await button.click()
-
-  // 일반적인 사용예에서 expect 2
-  await expect(page.getByText('Count: 2')).toBeVisible()
-  // flushSync 사용 시 expect 1
-  await expect(page.getByText('Count: 1')).toBeVisible()
-})
-```
-
-10ms 차이를 두고 더블클릭 시도할 경우를 시뮬레이트함 (chromium, firefox, webkit 모두 테스트)
-
-```bash
-pnpm test
-# or
-pnpm test:ui
-```
-
-그 결과 모두 통과함
-
-![image.png](./image.png)
-
-즉, 일반적인 사용예에서 더블클릭시 버튼이 두번 눌리는 현상이 발생함 (`flushSync` 사용 시 버튼은 한 번 눌림)
+- [React Query 공식 문서](https://tanstack.com/query/latest/docs/reference/notifyManager#:~:text=By%20default%2C%20the%20batch%20is%20run%20with%20a%20setTimeout%2C)
