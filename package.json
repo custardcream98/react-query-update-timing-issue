@@ -1,5 +1,5 @@
 {
-  "name": "react-state-update-timing-issue",
+  "name": "react-query-update-timing-issue",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "predeploy": "pnpm run build",
-    "deploy": "gh-pages -d dist"
+    "pages": "pnpm run build && gh-pages -d dist"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.80.6",
