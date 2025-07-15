@@ -30,7 +30,7 @@ export const Demo = () => {
 
   return (
     <div>
-      <p>콘솔 로그를 확인해주세요.</p>
+      <p>콘솔 로그를 확인해주세요. Trigger Triple Click 버튼을 클릭하면 API CALL이 두 번 일어납니다.</p>
       <div>
         <button ref={buttonRef} disabled={mutation.isPending} onClick={() => mutation.mutate()}>
           {mutation.isPending ? '🔄 Loading...' : '🚀 Click me'}
@@ -40,7 +40,6 @@ export const Demo = () => {
         <button
           onClick={() => {
             console.group(`%c⚡ TRIPLE CLICK DEMO ${getTimestamp()}`, logStyles.click)
-            console.log(`%c📍 onClick Start`, logStyles.click)
 
             // ① 첫 번째 클릭: 바로 mutate
             console.log(`%c1️⃣ 첫 번째 클릭 (동기 실행)`, logStyles.click)
@@ -82,8 +81,6 @@ export const Demo = () => {
 
               console.groupEnd() // Close triple click demo group
             }, 0)
-
-            console.log(`%c📍 onClick End`, logStyles.click)
           }}
         >
           ⚡ Trigger Triple Click
