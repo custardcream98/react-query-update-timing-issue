@@ -48,7 +48,7 @@ export const Demo = () => {
             // ② 같은 tick 내에서 micro-task로 두 번째 클릭 시도
             queueMicrotask(() => {
               console.log(
-                `%c2️⃣ 두 번째 클릭 (마이크로태스크) ${getTimestamp()}%c\n   button.disabled: ${
+                `%c2️⃣ 두 번째 클릭 시도 (마이크로태스크) ${getTimestamp()}%c\n   button.disabled: ${
                   buttonRef.current?.disabled
                 }`,
                 logStyles.microtask,
@@ -60,7 +60,7 @@ export const Demo = () => {
             // ③ macro-task로 세 번째 클릭 시도
             setTimeout(() => {
               console.log(
-                `%c3️⃣ 세 번째 클릭 (매크로태스크) ${getTimestamp()}%c\n   button.disabled: ${
+                `%c3️⃣ 세 번째 클릭 시도 (매크로태스크) ${getTimestamp()}%c\n   button.disabled: ${
                   buttonRef.current?.disabled
                 }`,
                 logStyles.macrotask,
