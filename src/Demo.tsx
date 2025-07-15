@@ -71,7 +71,7 @@ export const Demo = () => {
 
               console.groupCollapsed(`%c💡 React Query 타이밍 원리 설명`, 'color: #6366f1; font-weight: bold;')
               console.log('• React Query는 내부적으로 notifyManager에서 setTimeout(..., 0)을 사용해 배치 처리')
-              console.log('• 마이크로태스크가 React Query의 매크로태스크 알림보다 먼저 실행됨')
+              console.log('• 마이크로태스크가 React Query의 매크로태스크 notification보다 먼저 실행됨')
               console.log(
                 '• 즉, 실제로 사용자의 버튼 클릭과 매크로태스크의 notification 사이 시간 갭으로 인해 중복 mutation이 발생할 수 있음',
               )
